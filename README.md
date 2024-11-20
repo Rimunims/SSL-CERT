@@ -17,3 +17,7 @@ Verify the Ingress:
 Run:
 
     kubectl get ingress -n new-jenkins3
+
+``bash
+kubectl create secret generic jenkins-auth-secret --from-literal=auth="your-username:your-api-token" -n new-jenkins3
+``
