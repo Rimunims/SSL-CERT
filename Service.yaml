@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-gcp-instance
+  namespace: new-jenkins3
+spec:
+  type: ExternalName
+  externalName: 34.170.235.39  # External IP of GCP Jenkins
+  ports:
+    - protocol: TCP
+      port: 8080  # Port Jenkins runs on the external instance
+      targetPort: 8080
