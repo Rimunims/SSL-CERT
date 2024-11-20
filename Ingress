@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jenkins-ingress
+  namespace: new-jenkins3
+  annotations:
+    kubernetes.io/ingress.class: "nginx"  # Ingress class
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"  # For SSL
+spec:
+  tls:
+    - hosts:
+        - jenkins.example.com  # Replace with your domain
+      secretName: jenkins-tls-secret
+  rules:
+    - host: jenkins.example.com  # Replace with your domain
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jenkinsnew-3  # Kubernetes Jenkins service
+                port:
+                  number: 8080
+          - path: /external
+            pathType: Prefix
+            backend:
+              service:
+                name: jenkins-gcp-instance  # External Jenkins service
+                port:
+                  number: 8080
