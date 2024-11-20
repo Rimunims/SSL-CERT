@@ -4,9 +4,10 @@ metadata:
   name: jenkins-gcp-instance
   namespace: new-jenkins3
 spec:
-  type: ExternalName
-  externalName: 34.170.235.39  # External IP of GCP Jenkins
+  type: ClusterIP
   ports:
     - protocol: TCP
-      port: 8080  # Port Jenkins runs on the external instance
-      targetPort: 8080
+      port: 8080  # Port exposed by the service
+      targetPort: 8080  # External Jenkins port
+  externalIPs:
+    - 34.170.235.39  # External Jenkins IP
